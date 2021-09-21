@@ -31,6 +31,7 @@ class Offer:
         for key,value in offer.combindationDict.items():
             basket.remove_items(key, value)
         basket.add_item_price(offer.dealPrice)
+        return basket
 
 class Item:
     def __init__(self, name, standardPrice):
@@ -44,7 +45,6 @@ class Basket:
         self.price = price
 
     def add_item(self, item):
-        print('Here')
         if item in self.items:
             self.items[item] = self.items[item] + 1
         else:
@@ -72,7 +72,7 @@ class Basket:
         for offer in self.viable_offers:
             try:
                 basket = Basket(self.viable_offers, self.items, self.price)
-                offer.apply_offer(basket)
+                basket = offer.apply_offer(basket)
                 new_potential_baskets.append(basket)
             except:
                 unviable_offers.append(offer)
@@ -90,6 +90,7 @@ productD = Item('D',15)
 productE = Item('E',40)
 products = { 'A': productA, 'B': productB, 'C': productC, 'D': productD, 'E': productE}
 offers = [Offer({productA: 3}, 130), Offer({productA: 5}, 200), Offer({productB: 2}, 45), Offer({productB: 1, productE: 2}, 80)]
+
 
 
 
