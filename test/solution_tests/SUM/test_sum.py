@@ -12,4 +12,3 @@ class TestSum():
 
     def test_random(self):
         assert sum_solution.compute(40, 33) == 73
-
