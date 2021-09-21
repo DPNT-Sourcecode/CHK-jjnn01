@@ -35,8 +35,8 @@ class Item:
 
 class Basket:
     def __init__(self, viable_offers, items, price):
-        self.viable_offers = viable_offers
-        self.items = items
+        self.viable_offers = viable_offers.copy()
+        self.items = items.copy()
         self.price = price
 
     def add_item(self, item):
@@ -74,8 +74,6 @@ class Basket:
                 unviable_offers.append(offer)
         for unviable_offer in unviable_offers:
             self.viable_offers.remove(unviable_offer)
-        for basket in new_potential_baskets:
-            basket.viableOffers = self.viable_offers
         return new_potential_baskets
 
 
@@ -84,6 +82,7 @@ productB = Item('B',30)
 productC = Item('C',20)
 productD = Item('D',15)
 productE = Item('E',40)
+
 
 
 
