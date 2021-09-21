@@ -77,6 +77,7 @@ class Basket:
     
     def calculate_value(self):
         if self.non_competing_offers:
+            print('Non competing offers')
             self.apply_non_competing_offers()
         if self.competing_offers:
             competing_offer = self.competing_offers[0]
@@ -90,10 +91,14 @@ class Basket:
         for offer in self.non_competing_offers:
             while True:
                 try:
-                    self = offer.apply_offer(self)
+                    basket = Basket(self.competing_offers,[], self.items, self.price)
+                    basket = offer.apply_offer(self)
+                    self = basket
                 except:
                     try:
-                        self = offer.dominated_offer.apply_offer(self)
+                        basket = Basket(self.competing_offers,[], self.items, self.price)
+                        basket = offer.dominated_offer.apply_offer(self)
+                        self = basket
                     except:
                      pass
                 break
@@ -136,6 +141,7 @@ productW = Item('W',20)
 productX = Item('X',90)
 productY = Item('Y',10)
 productZ = Item('Z',50)
+
 
 
 
