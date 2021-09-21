@@ -46,10 +46,10 @@ class GroupOffer:
         self.price = price
 
     def apply_offer(self, basket):
-        print('Here')
         value_ranked_collection = [(x,basket.items.get(x, 0)) for x in self.elements]
-        print(value_ranked_collection)
-        if (sum(value_ranked_collection[1]) < self.required_number):
+        print('No throw yet')
+        if (sum([pair[1] for pair in value_ranked_collection]) < self.required_number):
+            print('Throwing')
             raise InvalidOfferException("Invalid Offer")
         still_required = self.required_number
         for item in value_ranked_collection:
@@ -174,6 +174,7 @@ productW = Item('W',20)
 productX = Item('X',17)
 productY = Item('Y',20)
 productZ = Item('Z',21)
+
 
 
 
