@@ -7,8 +7,20 @@ class InvalidOperationException(Exception):
         self.message = message
 
 def checkout(skus):
-    products = { 'A': productA, 'B': productB, 'C': productC, 'D': productD, 'E': productE, 'F': productF}
-    combo_offers = [Offer({productA: 3}, 130), Offer({productA: 5}, 200), Offer({productB: 2}, 45), Offer({productB: 1, productE: 2}, 80), Offer({productF: 3}, 20)]
+    products = {
+        'A': productA, 'B': productB, 'C': productC,'D': productD,'E': productE,
+        'F': productF, 'G': productG, 'H': productH,'I': productI,'J': productJ,
+        'K': productK, 'L': productL, 'M': productM,'N': productN,'O': productO,
+        'P': productP, 'Q': productQ, 'R': productR,'S': productS,'T': productT,
+        'U': productU, 'V': productV, 'W': productW,'X': productX,'Y': productY,
+        'Z': productZ}
+    combo_offers = [
+        Offer({productA: 3}, 130),
+        Offer({productA: 5}, 200),
+        Offer({productB: 2}, 45),
+        Offer({productB: 1, productE: 2}, 80),
+        Offer({productF: 3}, 20),
+        ]
     basket = Basket(combo_offers, {}, 0)
     for letter in skus:
         try:
@@ -82,5 +94,27 @@ productC = Item('C',20)
 productD = Item('D',15)
 productE = Item('E',40)
 productF = Item('F',10)
+productG = Item('G',20)
+productH = Item('H',10)
+productI = Item('I',35)
+productJ = Item('J',60)
+productK = Item('K',80)
+productL = Item('L',90)
+productM = Item('M',15)
+productN = Item('N',40)
+productO = Item('O',10)
+productP = Item('P',50)
+productQ = Item('Q',30)
+productR = Item('R',50)
+productS = Item('S',30)
+productT = Item('T',20)
+productU = Item('U',40)
+productV = Item('V',50)
+productW = Item('W',20)
+productX = Item('X',90)
+productY = Item('Y',10)
+productZ = Item('Z',50)
+
+
 
 
