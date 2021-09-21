@@ -88,15 +88,15 @@ class Basket:
 
     def apply_non_competing_offers(self):
         for offer in self.non_competing_offers:
-            try:
-                while true:
-                    self = offer.apply_offer(self)
-            except:
+            while True:
                 try:
-                    self = offer.dominated_offer.apply_offer(self)
+                    self = offer.apply_offer(self)
                 except:
-                    continue
-                continue
+                    try:
+                        self = offer.dominated_offer.apply_offer(self)
+                    except:
+                     pass
+                break
             
         
     def apply_competing_offer(self, offer, alternative, competing_offer):
@@ -136,6 +136,7 @@ productW = Item('W',20)
 productX = Item('X',90)
 productY = Item('Y',10)
 productZ = Item('Z',50)
+
 
 
 
