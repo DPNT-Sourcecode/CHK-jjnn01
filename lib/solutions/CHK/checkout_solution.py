@@ -56,7 +56,8 @@ class Item:
 
 class Basket:
     def __init__(self, competing_offers, non_competing_offers, items, price):
-        self.viable_offers = viable_offers.copy()
+        self.non_competing_offers = non_competing_offers.copy()
+        self.competing_offers = competing_offers.copy()
         self.items = items.copy()
         self.price = price
 
@@ -78,8 +79,10 @@ class Basket:
         if self.non_competing_offers:
             self.apply_non_competing_offers()
         new_potential_baskets = self.apply_competing_offers()
-        if new_potential_baskets:
-            return min(x.calculate_value() for x in new_potential_baskets)
+        if self.competing_offers:
+            competing_offer = self.competing_offers[0]
+            return min(self.apply_competing_offer(competing_offer[0][1], competing_offer[1][0], competing_offer),
+                       self.apply_competing_offer(competing_offer[1][0], competing_offer[0][1], competing_offer))
         for item, count in self.items.items():
             self.price += item.standardPrice * count
         return self.price
@@ -97,19 +100,15 @@ class Basket:
                 continue
             
         
-    def apply_competing_offers(self):
-        new_potential_baskets = []
-        if self.competing_offers:
-            competing_offer = self.competing_offers[0]
-            for offer in self.competing_offers[0]:
-                try:
-                    basket = Basket(self.competing_offers,[], self.items, self.price)
-                    basket = offer.apply_offer(basket)
-                    new_potential_baskets.append(basket)
-                except:
-                    competing_offer.remove(offer)
+    def apply_competing_offer(self, offer, alternative, competing_offer):
+        basket = Basket(self.competing_offers,[], self.items, self.price)
+        try:
+            basket = offer.apply_offer(basket)        
+        except:
+            basket.competing_offers.remove(competing_offer)
+            basket.non_competing_offers.append(alternative)
+        return basket.calculateValue()
             
-        return new_potential_baskets
 
 
 productA = Item('A',50)
@@ -138,4 +137,5 @@ productW = Item('W',20)
 productX = Item('X',90)
 productY = Item('Y',10)
 productZ = Item('Z',50)
+
 
