@@ -14,12 +14,13 @@ def checkout(skus):
 def getValue(letter, number):
     
     if letter == 'A':
-        return (number % 3) * 130 + (number/3) * 50
+        return (number // 3) * 130 + (number%3) * 50
     elif letter == 'B':
-        return (number % 2) * 45 + (number/2) * 30
+        return (number // 2) * 45 + (number%2) * 30
     elif letter ==  'C':
         return number * 20
     elif letter == 'D':
         return number * 15
+
 
 
