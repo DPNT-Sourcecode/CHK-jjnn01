@@ -52,4 +52,6 @@ class TestCHK():
     def test_ZTS(self):
         assert checkout_solution.checkout('ZTS') == 45
 
+    def test_ZXZSX(self):
+        assert checkout_solution.checkout('ZXZSX') == 79
 

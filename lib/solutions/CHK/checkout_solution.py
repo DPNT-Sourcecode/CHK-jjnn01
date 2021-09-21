@@ -41,7 +41,7 @@ def checkout(skus):
 class GroupOffer:
     def __init__(self, elements, required_number, price):
         self.elements = elements.copy()
-        self.elements.sort(key= lambda l: l.price, reverse=True)
+        self.elements.sort(key= lambda l: l.standardPrice, reverse=True)
         self.required_number = required_number
         self.price = price
 
@@ -87,7 +87,7 @@ class Basket:
         self.competing_offers = competing_offers.copy()
         self.items = items.copy()
         self.price = price
-        self.group_offer = group_offer.copy()
+        self.group_offers = group_offers.copy()
 
     def add_item(self, item):
         if item in self.items:
@@ -104,8 +104,8 @@ class Basket:
     def calculate_value(self):
         if self.non_competing_offers:
             self.apply_non_competing_offers()
-        if self.group_offer:
-            self.apply_group_offer()
+        if self.group_offers:
+            self.apply_group_offers()
         if self.competing_offers:
             competing_offer = self.competing_offers[0]
             return min(self.apply_competing_offer(competing_offer[0], competing_offer[1], competing_offer),
@@ -171,5 +171,4 @@ productW = Item('W',20)
 productX = Item('X',17)
 productY = Item('Y',20)
 productZ = Item('Z',21)
-
 
