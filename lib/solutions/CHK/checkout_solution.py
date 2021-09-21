@@ -23,7 +23,9 @@ class Offer:
         self.dealPrice = dealPrice
 
     def apply_offer(self, basket):
-        for key,value in offer.combindationDict.items():
+        print("applying offer")
+        for key,value in self.combinationDict.items():
+            print(f"Removing {value} occurences of {key}")
             basket.remove_items(key, value)
         basket.add_item_price(offer.dealPrice)
         return basket
@@ -47,6 +49,7 @@ class Basket:
 
     def remove_items(self, item, count):
         if self.items[item] < count:
+            print("About to blow")
             raise InvalidOperationException("Too few items to remove")
         self.items[item] = self.items[item] - count
 
@@ -87,6 +90,7 @@ productB = Item('B',30)
 productC = Item('C',20)
 productD = Item('D',15)
 productE = Item('E',40)
+
 
 
 
