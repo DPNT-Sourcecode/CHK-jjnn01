@@ -1,5 +1,3 @@
-
-
 # noinspection PyUnusedLocal
 # skus = unicode string
 
@@ -9,16 +7,13 @@ class InvalidOperationException(Exception):
         self.message = message
 
 def checkout(skus):
+    products = { 'A': productA, 'B': productB, 'C': productC, 'D': productD, 'E': productE}
+    combo_offers = [Offer({productA: 3}, 130), Offer({productA: 5}, 200), Offer({productB: 2}, 45), Offer({productB: 1, productE: 2}, 80)]
     basket = Basket(combo_offers, {}, 0)
-    print('Hllo')
-    for x in combo_offers:
-        print(x.dealPrice)
-    print('Wrld')
     for letter in skus:
         try:
             basket.add_item(products[letter])
         except Exception as e:
-            print(e)
             return -1
     return basket.calculate_value()
 
@@ -72,9 +67,9 @@ class Basket:
         
         for offer in self.viable_offers:
             try:
-                print(offer)
+                print(offer.dealPrice)
                 basket = Basket(self.viable_offers, self.items, self.price)
-                print(basket)
+                print(basket.items)
                 basket = offer.apply_offer(basket)
                 print(basket.price)
                 new_potential_baskets.append(basket)
@@ -92,8 +87,7 @@ productB = Item('B',30)
 productC = Item('C',20)
 productD = Item('D',15)
 productE = Item('E',40)
-products = { 'A': productA, 'B': productB, 'C': productC, 'D': productD, 'E': productE}
-combo_offers = [Offer({productA: 3}, 130), Offer({productA: 5}, 200), Offer({productB: 2}, 45), Offer({productB: 1, productE: 2}, 80)]
+
 
 
 
