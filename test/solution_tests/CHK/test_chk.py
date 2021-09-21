@@ -31,6 +31,10 @@ class TestCHK():
     def test_multiplediscountswhennested(self):
         assert checkout_solution.checkout('ABABA') == 175
 
+    def test_lowercase(self):
+        assert checkout_solution.checkout('a') == 50
+
+
 
 
 
