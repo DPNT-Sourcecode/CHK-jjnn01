@@ -58,11 +58,11 @@ class GroupOffer:
             if count == 0:
                 print("ZeroCount")
                 continue
-            if item[1] < still_required:
+            if count < still_required:
                 print("Less than required")
                 print(
-                still_required -= item[1]
-                basket.remove_items(item[0], time[1])
+                still_required = still_required - count
+                basket.remove_items(item[0], count)
             else:
                 print("Enough")
                 basket.remove_items(item[0], still_required)
@@ -181,6 +181,7 @@ productW = Item('W',20)
 productX = Item('X',17)
 productY = Item('Y',20)
 productZ = Item('Z',21)
+
 
 
 
