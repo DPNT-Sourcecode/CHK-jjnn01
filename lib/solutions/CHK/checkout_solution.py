@@ -14,24 +14,22 @@ def checkout(skus):
         'P': productP, 'Q': productQ, 'R': productR,'S': productS,'T': productT,
         'U': productU, 'V': productV, 'W': productW,'X': productX,'Y': productY,
         'Z': productZ}
-    combo_offers = [
-        Offer({productA: 3}, 130),
-        Offer({productA: 5}, 200),
-        Offer({productB: 2}, 45),
-        Offer({productB: 1, productE: 2}, 80),
-        Offer({productF: 3}, 20),
-        Offer({productH: 5}, 45),
-        Offer({productH: 10}, 80),
-        Offer({productK: 2}, 150),
-        Offer({productN: 3, productM:1}, 120),
-        Offer({productP: 5}, 200),
-        Offer({productQ: 3}, 80),
-        Offer({productR: 3, productQ:1}, 150),
-        Offer({productU: 4}, 120),
-        Offer({productV: 2}, 90),
-        Offer({productV: 3}, 130)
+    competing_offers = [
+        [Offer({productB: 2}, 45), Offer({productB: 1, productE: 2}, 80)],
+        [Offer({productQ: 3}, 80), Offer({productR: 3, productQ:1}, 150)]
         ]
-    basket = Basket(combo_offers, {}, 0)
+    non_competing_offers = [
+        Offer({productA: 5}, 200, Offer({productA: 3}, 130)),
+        Offer({productH: 10}, 80, Offer({productH: 5}, 45)),
+        Offer({productV: 3}, 130, Offer({productV: 2}, 90)),
+        Offer({productF: 3}, 20),
+        Offer({productK: 2}, 150),
+        Offer({productU: 4}, 120),
+        Offer({productN: 3, productM:1}, 120),
+        Offer({productP: 5}, 200)
+        ]
+    
+    basket = Basket(competing_offers, non_competing_offers, {}, 0)
     for letter in skus:
         try:
             basket.add_item(products[letter])
@@ -40,9 +38,10 @@ def checkout(skus):
     return basket.calculate_value()
 
 class Offer:
-    def __init__(self, combinationDict, dealPrice):
+    def __init__(self, combinationDict, dealPrice, dominated_offer=null):
         self.combinationDict = combinationDict
         self.dealPrice = dealPrice
+        self.dominatedOffer = dominated_offer
 
     def apply_offer(self, basket):
         for key,value in self.combinationDict.items():
@@ -56,7 +55,7 @@ class Item:
         self.standardPrice = standardPrice
 
 class Basket:
-    def __init__(self, viable_offers, items, price):
+    def __init__(self, competing_offers, non_competing_offers, items, price):
         self.viable_offers = viable_offers.copy()
         self.items = items.copy()
         self.price = price
@@ -76,25 +75,40 @@ class Basket:
         self.price += price
     
     def calculate_value(self):
-        new_potential_baskets = self.apply_offers()
+        if self.non_competing_offers:
+            self.apply_non_competing_offers()
+        new_potential_baskets = self.apply_competing_offers()
         if new_potential_baskets:
             return min(x.calculate_value() for x in new_potential_baskets)
         for item, count in self.items.items():
             self.price += item.standardPrice * count
         return self.price
 
-    def apply_offers(self):
-        unviable_offers = []
-        new_potential_baskets = []
-        for offer in self.viable_offers:
+    def apply_non_competing_offers(self):
+        for offer in self.non_competing_offers:
             try:
-                basket = Basket(self.viable_offers, self.items, self.price)
-                basket = offer.apply_offer(basket)
-                new_potential_baskets.append(basket)
+                while true:
+                    self = offer.apply_offer(self)
             except:
-                unviable_offers.append(offer)
-        for unviable_offer in unviable_offers:
-            self.viable_offers.remove(unviable_offer)
+                try:
+                    self = offer.dominated_offer.apply_offer(self)
+                except:
+                    continue
+                continue
+            
+        
+    def apply_competing_offers(self):
+        new_potential_baskets = []
+        if self.competing_offers:
+            competing_offer = self.competing_offers[0]
+            for offer in self.competing_offers[0]:
+                try:
+                    basket = Basket(self.competing_offers,[], self.items, self.price)
+                    basket = offer.apply_offer(basket)
+                    new_potential_baskets.append(basket)
+                except:
+                    competing_offer.remove(offer)
+            
         return new_potential_baskets
 
 
@@ -124,4 +138,5 @@ productW = Item('W',20)
 productX = Item('X',90)
 productY = Item('Y',10)
 productZ = Item('Z',50)
+
 
