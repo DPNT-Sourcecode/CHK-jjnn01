@@ -43,9 +43,13 @@ class TestCHK():
     def test_bad_input_negative_one(self):
         assert checkout_solution.checkout('e') == -1
 
-    def singleF(self):
+    def test_singleF(self):
         assert checkout_solution.checkout('F') == 10
 
-    def tripleF(self):
+    def test_tripleF(self):
         assert checkout_solution.checkout('FFF') == 20
+
+    def test_ZTS(self):
+        assert checkout_solution.checkout('ZTS') == 45
+
 
