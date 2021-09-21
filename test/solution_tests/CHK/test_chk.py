@@ -49,4 +49,3 @@ class TestCHK():
     def tripleF(self):
         assert checkout_solution.checkout('FFF') == 20
 
-
