@@ -78,11 +78,10 @@ class Basket:
     def calculate_value(self):
         if self.non_competing_offers:
             self.apply_non_competing_offers()
-        new_potential_baskets = self.apply_competing_offers()
         if self.competing_offers:
             competing_offer = self.competing_offers[0]
-            return min(self.apply_competing_offer(competing_offer[0][1], competing_offer[1][0], competing_offer),
-                       self.apply_competing_offer(competing_offer[1][0], competing_offer[0][1], competing_offer))
+            return min(self.apply_competing_offer(competing_offer[0], competing_offer[1], competing_offer),
+                       self.apply_competing_offer(competing_offer[1], competing_offer[0], competing_offer))
         for item, count in self.items.items():
             self.price += item.standardPrice * count
         return self.price
@@ -107,7 +106,7 @@ class Basket:
         except:
             basket.competing_offers.remove(competing_offer)
             basket.non_competing_offers.append(alternative)
-        return basket.calculateValue()
+        return basket.calculate_value()
             
 
 
@@ -137,5 +136,6 @@ productW = Item('W',20)
 productX = Item('X',90)
 productY = Item('Y',10)
 productZ = Item('Z',50)
+
 
 
