@@ -25,7 +25,7 @@ class Offer:
     def apply_offer(self, basket):
         for key,value in self.combinationDict.items():
             basket.remove_items(key, value)
-        basket.add_item_price(offer.dealPrice)
+        basket.add_item_price(self.dealPrice)
         return basket
 
 class Item:
@@ -51,7 +51,7 @@ class Basket:
         self.items[item] = self.items[item] - count
 
     def add_item_price(self, price):
-        self.price = self.price + price
+        self.price += price
     
     def calculate_value(self):
         new_potential_baskets = self.apply_offers()
@@ -67,9 +67,7 @@ class Basket:
         
         for offer in self.viable_offers:
             try:
-                print(offer.dealPrice)
                 basket = Basket(self.viable_offers, self.items, self.price)
-                print(basket.items)
                 basket = offer.apply_offer(basket)
                 print(basket.price)
                 new_potential_baskets.append(basket)
@@ -87,3 +85,4 @@ productB = Item('B',30)
 productC = Item('C',20)
 productD = Item('D',15)
 productE = Item('E',40)
+
