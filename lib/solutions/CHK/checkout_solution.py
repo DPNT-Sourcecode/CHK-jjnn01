@@ -9,9 +9,9 @@ class InvalidOperationException(Exception):
         self.message = message
 
 def checkout(skus):
-    basket = Basket(offers, {}, 0)
+    basket = Basket(combo_offers, {}, 0)
     print('Hllo')
-    for x in offers:
+    for x in combo_offers:
         print(x.dealPrice)
     print('Wrld')
     for letter in skus:
@@ -93,7 +93,8 @@ productC = Item('C',20)
 productD = Item('D',15)
 productE = Item('E',40)
 products = { 'A': productA, 'B': productB, 'C': productC, 'D': productD, 'E': productE}
-offers = [Offer({productA: 3}, 130), Offer({productA: 5}, 200), Offer({productB: 2}, 45), Offer({productB: 1, productE: 2}, 80)]
+combo_offers = [Offer({productA: 3}, 130), Offer({productA: 5}, 200), Offer({productB: 2}, 45), Offer({productB: 1, productE: 2}, 80)]
+
 
 
 
