@@ -47,22 +47,26 @@ class GroupOffer:
 
     def apply_offer(self, basket):
         value_ranked_collection = [(x,basket.items.get(x, 0)) for x in self.elements]
-        print('No throw yet')
-        print(value_ranked_collection)
         number_of_items = sum(j for _, j in value_ranked_collection) 
         if (number_of_items < self.required_number):
-            print('Throwing')
             raise InvalidOfferException("Invalid Offer")
-        print('did not throw')
         still_required = self.required_number
         for item in value_ranked_collection:
-            if item[1] == 0:
+            count = item[1]
+            print(f"checking count: {item[0]} - {item[1]}")
+            print(f"still_required: {still_required}")
+            if count == 0:
+                print("ZeroCount")
                 continue
             if item[1] < still_required:
+                print("Less than required")
+                print(
                 still_required -= item[1]
                 basket.remove_items(item[0], time[1])
             else:
+                print("Enough")
                 basket.remove_items(item[0], still_required)
+                break;
         basket.add_item_price(self.price)
         return basket
 
@@ -177,6 +181,7 @@ productW = Item('W',20)
 productX = Item('X',17)
 productY = Item('Y',20)
 productZ = Item('Z',21)
+
 
 
 
