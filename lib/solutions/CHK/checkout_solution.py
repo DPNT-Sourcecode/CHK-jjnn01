@@ -96,8 +96,8 @@ class Basket:
                     try:
                         self = offer.dominated_offer.apply_offer(self)
                     except:
-                     pass
-                break
+                         break
+                    break
             
         
     def apply_competing_offer(self, offer, alternative, competing_offer):
@@ -137,4 +137,5 @@ productW = Item('W',20)
 productX = Item('X',90)
 productY = Item('Y',10)
 productZ = Item('Z',50)
+
 

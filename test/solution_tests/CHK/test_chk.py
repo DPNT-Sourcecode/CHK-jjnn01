@@ -27,6 +27,9 @@ class TestCHK():
 
     def test_fiveA(self):
         assert checkout_solution.checkout('AAAAA') == 200
+
+    def test_Oct8(self):
+        assert checkout_solution.checkout('AAAAAAAA') == 330
     
     def test_twoB(self):
         assert checkout_solution.checkout('BB') == 45
@@ -45,4 +48,5 @@ class TestCHK():
 
     def tripleF(self):
         assert checkout_solution.checkout('FFF') == 20
+
 
