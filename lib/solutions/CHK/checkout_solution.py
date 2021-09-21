@@ -54,18 +54,12 @@ class GroupOffer:
         for item_tuple in value_ranked_collection:
             count = item_tuple[1]
             item = item_tuple[0]
-            print(item.name)
-            print(f"checking count: {item[0]} - {item[1]}")
-            print(f"still_required: {still_required}")
             if count == 0:
-                print("ZeroCount")
                 continue
             if count < still_required:
-                print("Less than required")
                 still_required = still_required - count
                 basket.remove_items(item, count)
             else:
-                print("Enough")
                 basket.remove_items(item, still_required)
                 break
         basket.add_item_price(self.price)
@@ -181,6 +175,7 @@ productW = Item('W',20)
 productX = Item('X',17)
 productY = Item('Y',20)
 productZ = Item('Z',21)
+
 
 
 
