@@ -20,6 +20,16 @@ def checkout(skus):
         Offer({productB: 2}, 45),
         Offer({productB: 1, productE: 2}, 80),
         Offer({productF: 3}, 20),
+        Offer({productH: 5}, 45),
+        Offer({productH: 10}, 80),
+        Offer({productK: 2}, 150),
+        Offer({productN: 3, productM:1}, 120),
+        Offer({productP: 5}, 200),
+        Offer({productQ: 3}, 80),
+        Offer({productR: 3, productQ:1}, 150),
+        Offer({productU: 4}, 120),
+        Offer({productV: 2}, 90),
+        Offer({productV: 3}, 130)
         ]
     basket = Basket(combo_offers, {}, 0)
     for letter in skus:
@@ -114,6 +124,7 @@ productW = Item('W',20)
 productX = Item('X',90)
 productY = Item('Y',10)
 productZ = Item('Z',50)
+
 
 
 
