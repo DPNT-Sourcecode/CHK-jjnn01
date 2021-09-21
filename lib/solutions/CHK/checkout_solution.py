@@ -38,7 +38,7 @@ def checkout(skus):
     return basket.calculate_value()
 
 class Offer:
-    def __init__(self, combinationDict, dealPrice, dominated_offer=null):
+    def __init__(self, combinationDict, dealPrice, dominated_offer=None):
         self.combinationDict = combinationDict
         self.dealPrice = dealPrice
         self.dominatedOffer = dominated_offer
@@ -138,5 +138,6 @@ productW = Item('W',20)
 productX = Item('X',90)
 productY = Item('Y',10)
 productZ = Item('Z',50)
+
 
 
