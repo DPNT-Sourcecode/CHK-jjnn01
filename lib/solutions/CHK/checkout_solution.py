@@ -28,7 +28,7 @@ class Offer:
         self.dealPrice = dealPrice
 
     def apply_offer(self, basket):
-        for key,value in offer.combindationDict.Items():
+        for key,value in offer.combindationDict.items():
             basket.remove_items(key, value)
         basket.add_item_price(offer.dealPrice)
 
@@ -62,7 +62,7 @@ class Basket:
         new_potential_baskets = self.apply_offers()
         if new_potential_baskets:
             return min(new_potential_baskets, lambda x: x.calculate_value)
-        for item, count in self.items.Items():
+        for item, count in self.items.items():
             self.price += item.standardPrice * count
         return self.price
 
@@ -73,9 +73,9 @@ class Basket:
             try:
                 basket = Basket(self.viable_offers, self.items, self.price)
                 offer.apply_offer(basket)
-                new_potential_baskets.add(basket)
+                new_potential_baskets.append(basket)
             except:
-                unviable_offers.add(offer)
+                unviable_offers.append(offer)
         for unviable_offer in unviable_offers:
             self.viable_offers.remove(unviable_offer)
         for basket in new_potential_baskets:
@@ -90,5 +90,6 @@ productD = Item('D',15)
 productE = Item('E',40)
 products = { 'A': productA, 'B': productB, 'C': productC, 'D': productD, 'E': productE}
 offers = [Offer({productA: 3}, 130), Offer({productA: 5}, 200), Offer({productB: 2}, 45), Offer({productB: 1, productE: 2}, 80)]
+
 
 
