@@ -56,7 +56,7 @@ class Basket:
     def calculate_value(self):
         new_potential_baskets = self.apply_offers()
         if new_potential_baskets:
-            return min(new_potential_baskets, lambda x: x.calculate_value)
+            return min(x.calculate_value() for x in new_potential_baskets)
         for item, count in self.items.items():
             self.price += item.standardPrice * count
         return self.price
@@ -85,4 +85,5 @@ productB = Item('B',30)
 productC = Item('C',20)
 productD = Item('D',15)
 productE = Item('E',40)
+
 
