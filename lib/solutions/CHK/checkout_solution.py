@@ -68,7 +68,6 @@ class Basket:
             try:
                 basket = Basket(self.viable_offers, self.items, self.price)
                 basket = offer.apply_offer(basket)
-                print(basket.price)
                 new_potential_baskets.append(basket)
             except:
                 unviable_offers.append(offer)
@@ -82,7 +81,3 @@ productB = Item('B',30)
 productC = Item('C',20)
 productD = Item('D',15)
 productE = Item('E',40)
-
-
-
-
