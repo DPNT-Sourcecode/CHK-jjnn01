@@ -21,7 +21,3 @@ def getValue(letter, number):
         return number * 20
     elif letter == 'D':
         return number * 15
-
-
-
-
