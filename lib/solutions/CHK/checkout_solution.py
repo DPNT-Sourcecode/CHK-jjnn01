@@ -1,7 +1,7 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 
-class InvalidOperationException(Exception):
+class InvalidOfferException(Exception):
     def __init__(self, expression, message):
         self.expression = expression
         self.message = message
@@ -41,9 +41,12 @@ class Offer:
     def __init__(self, combinationDict, dealPrice, dominated_offer=None):
         self.combinationDict = combinationDict
         self.dealPrice = dealPrice
-        self.dominatedOffer = dominated_offer
+        self.dominated_offer = dominated_offer
 
     def apply_offer(self, basket):
+        for key, value in self.combinationDict.items():
+            if value > basket.items[key]:
+                raise InvalidOfferException("Invalid Offer")
         for key,value in self.combinationDict.items():
             basket.remove_items(key, value)
         basket.add_item_price(self.dealPrice)
@@ -68,8 +71,6 @@ class Basket:
             self.items[item] = 1
 
     def remove_items(self, item, count):
-        if self.items[item] < count:
-            raise InvalidOperationException("Too few items to remove")
         self.items[item] = self.items[item] - count
 
     def add_item_price(self, price):
@@ -77,7 +78,6 @@ class Basket:
     
     def calculate_value(self):
         if self.non_competing_offers:
-            print('Non competing offers')
             self.apply_non_competing_offers()
         if self.competing_offers:
             competing_offer = self.competing_offers[0]
@@ -91,14 +91,10 @@ class Basket:
         for offer in self.non_competing_offers:
             while True:
                 try:
-                    basket = Basket(self.competing_offers,[], self.items, self.price)
-                    basket = offer.apply_offer(self)
-                    self = basket
+                    self = offer.apply_offer(self)
                 except:
                     try:
-                        basket = Basket(self.competing_offers,[], self.items, self.price)
-                        basket = offer.dominated_offer.apply_offer(self)
-                        self = basket
+                        self = offer.dominated_offer.apply_offer(self)
                     except:
                      pass
                 break
@@ -141,8 +137,4 @@ productW = Item('W',20)
 productX = Item('X',90)
 productY = Item('Y',10)
 productZ = Item('Z',50)
-
-
-
-
 
