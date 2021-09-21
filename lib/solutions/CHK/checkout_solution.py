@@ -23,19 +23,43 @@ def checkout(skus):
         Offer({productH: 10}, 80, Offer({productH: 5}, 45)),
         Offer({productV: 3}, 130, Offer({productV: 2}, 90)),
         Offer({productF: 3}, 20),
-        Offer({productK: 2}, 150),
+        Offer({productK: 2}, 120),
         Offer({productU: 4}, 120),
         Offer({productN: 3, productM:1}, 120),
         Offer({productP: 5}, 200)
         ]
+    group_offers = [GroupOffer([productZ, productS, productT, productY, productX], 3, 45)]
     
-    basket = Basket(competing_offers, non_competing_offers, {}, 0)
+    basket = Basket(competing_offers, non_competing_offers, group_offers, {}, 0)
     for letter in skus:
         try:
             basket.add_item(products[letter])
         except Exception as e:
             return -1
     return basket.calculate_value()
+
+class GroupOffer:
+    def __init__(self, elements, required_number, price):
+        self.elements = elements.copy()
+        self.elements.sort(key= lambda l: l.price, reverse=True)
+        self.required_number = required_number
+        self.price = price
+
+    def apply_offer(self, basket):
+        value_ranked_collection = [(x,basket.items[x]) for x in self.elements]
+        if (sum(value_ranked_collection[1]) < self.required_number):
+            raise InvalidOfferException("Invalid Offer")
+        still_required = self.required_number
+        for item in value_ranked_collection:
+            if item[1] == 0:
+                continue
+            if item[1] < still_required:
+                still_required -= item[1]
+                basket.remove_items(item[0], time[1])
+            else:
+                basket.remove_items(item[0], still_required)
+        basket.add_item_price(self.price)
+        return basket
 
 class Offer:
     def __init__(self, combinationDict, dealPrice, dominated_offer=None):
@@ -58,11 +82,12 @@ class Item:
         self.standardPrice = standardPrice
 
 class Basket:
-    def __init__(self, competing_offers, non_competing_offers, items, price):
+    def __init__(self, competing_offers, non_competing_offers, group_offers, items, price):
         self.non_competing_offers = non_competing_offers.copy()
         self.competing_offers = competing_offers.copy()
         self.items = items.copy()
         self.price = price
+        self.group_offer = group_offer.copy()
 
     def add_item(self, item):
         if item in self.items:
@@ -79,6 +104,8 @@ class Basket:
     def calculate_value(self):
         if self.non_competing_offers:
             self.apply_non_competing_offers()
+        if self.group_offer:
+            self.apply_group_offer()
         if self.competing_offers:
             competing_offer = self.competing_offers[0]
             return min(self.apply_competing_offer(competing_offer[0], competing_offer[1], competing_offer),
@@ -98,10 +125,17 @@ class Basket:
                     except:
                          break
                     break
-            
+
+    def apply_group_offers(self):
+        for offer in self.group_offers:
+            while True:
+                try:
+                    self = offer.apply_group_offer(self)
+                except:
+                    break
         
     def apply_competing_offer(self, offer, alternative, competing_offer):
-        basket = Basket(self.competing_offers,[], self.items, self.price)
+        basket = Basket(self.competing_offers,[],[],self.items, self.price)
         try:
             basket = offer.apply_offer(basket)        
         except:
@@ -121,7 +155,7 @@ productG = Item('G',20)
 productH = Item('H',10)
 productI = Item('I',35)
 productJ = Item('J',60)
-productK = Item('K',80)
+productK = Item('K',70)
 productL = Item('L',90)
 productM = Item('M',15)
 productN = Item('N',40)
@@ -129,12 +163,13 @@ productO = Item('O',10)
 productP = Item('P',50)
 productQ = Item('Q',30)
 productR = Item('R',50)
-productS = Item('S',30)
+productS = Item('S',20)
 productT = Item('T',20)
 productU = Item('U',40)
 productV = Item('V',50)
 productW = Item('W',20)
-productX = Item('X',90)
-productY = Item('Y',10)
-productZ = Item('Z',50)
+productX = Item('X',17)
+productY = Item('Y',20)
+productZ = Item('Z',21)
+
 
