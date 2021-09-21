@@ -1,5 +1,5 @@
-from lib.solutions.CHK import hello_solution
+from lib.solutions.CHK import checkout_solution
 
-class TestHLO():
-    def test_hello(self):
-        assert hello_solution.hello('John') == 'Hello, John!'
+class TestCHK():
+    def test_singleA(self):
+        assert checkout_solution.hello('John') == 'Hello, John!'
