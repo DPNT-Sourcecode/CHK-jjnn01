@@ -28,7 +28,7 @@ def checkout(skus):
         Offer({productN: 3, productM:1}, 120),
         Offer({productP: 5}, 200)
         ]
-    group_offers = [GroupOffer([productZ, productS, productT, productY, productX], 3, 45)]
+    group_offers = [GroupOffer([productS, productT, productX, productY, productZ], 3, 45)]
     
     basket = Basket(competing_offers, non_competing_offers, group_offers, {}, 0)
     for letter in skus:
@@ -46,6 +46,7 @@ class GroupOffer:
         self.price = price
 
     def apply_offer(self, basket):
+        print('Here')
         value_ranked_collection = [(x,basket.items[x]) for x in self.elements]
         if (sum(value_ranked_collection[1]) < self.required_number):
             raise InvalidOfferException("Invalid Offer")
@@ -130,7 +131,8 @@ class Basket:
         for offer in self.group_offers:
             while True:
                 try:
-                    self = offer.apply_group_offer(self)
+                    print('Trying')
+                    self = offer.apply_offer(self)
                 except:
                     break
         
@@ -171,4 +173,5 @@ productW = Item('W',20)
 productX = Item('X',17)
 productY = Item('Y',20)
 productZ = Item('Z',21)
+
 
