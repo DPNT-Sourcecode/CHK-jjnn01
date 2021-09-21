@@ -13,7 +13,7 @@ class TestCHK():
         assert checkout_solution.checkout('C') == 20
 
 
-    def test_singleC(self):
+    def test_singleD(self):
         assert checkout_solution.checkout('D') == 15
 
     def test_twoA(self):
@@ -36,6 +36,7 @@ class TestCHK():
 
     def test_bad_input_negative_one(self):
         assert checkout_solution.checkout('e') == -1
+
 
 
 
