@@ -1,14 +1,6 @@
-from lib.solutions.SUM import sum_solution
+from lib.solutions.HLO import hello_solution
 
-class TestSum():
-    def test_sum(self):
-        assert sum_solution.compute(1, 2) == 3
+class TestHLO():
+    def test_hello(self):
+        assert hello_solution.hello('John') == 'Hello John!'
 
-    def test_min(self):
-        assert sum_solution.compute(0, 0) == 0
-
-    def test_max(self):
-        assert sum_solution.compute(100, 100) == 200
-
-    def test_random(self):
-        assert sum_solution.compute(40, 33) == 73
