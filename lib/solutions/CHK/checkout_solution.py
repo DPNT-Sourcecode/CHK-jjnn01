@@ -6,7 +6,7 @@ def checkout(skus):
     dict = {'A': 0, 'B':0, 'C':0, 'D':0}
     for letter in skus:
         try:
-            dict[letter.upper()] = dict[letter.upper()] + 1
+            dict[letter] = dict[letter] + 1
         except:
             return -1
     return getValue('A', dict['A']) + getValue('B', dict['B']) + getValue('C', dict['C']) + getValue('D', dict['D'])
@@ -21,6 +21,7 @@ def getValue(letter, number):
         return number * 20
     elif letter == 'D':
         return number * 15
+
 
 
 

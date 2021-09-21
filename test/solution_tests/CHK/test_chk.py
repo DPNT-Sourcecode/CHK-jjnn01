@@ -32,10 +32,11 @@ class TestCHK():
         assert checkout_solution.checkout('ABABA') == 175
 
     def test_lowercase(self):
-        assert checkout_solution.checkout('a') == 50
+        assert checkout_solution.checkout('a') == -1
 
     def test_bad_input_negative_one(self):
         assert checkout_solution.checkout('e') == -1
+
 
 
 
