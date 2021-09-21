@@ -41,7 +41,7 @@ class Basket:
 
     def add_item(self, item):
         if item in self.items:
-            self.items[item] = self.items[item] + 1
+            self.items[item] += 1
         else:
             self.items[item] = 1
 
@@ -64,7 +64,6 @@ class Basket:
     def apply_offers(self):
         unviable_offers = []
         new_potential_baskets = []
-        
         for offer in self.viable_offers:
             try:
                 basket = Basket(self.viable_offers, self.items, self.price)
@@ -85,5 +84,6 @@ productB = Item('B',30)
 productC = Item('C',20)
 productD = Item('D',15)
 productE = Item('E',40)
+
 
 
