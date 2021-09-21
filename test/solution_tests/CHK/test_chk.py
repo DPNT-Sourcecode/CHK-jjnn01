@@ -25,6 +25,9 @@ class TestCHK():
     def test_fourA(self):
         assert checkout_solution.checkout('AAAA') == 180
 
+    def test_fiveA(self):
+        assert checkout_solution.checkout('AAAAA') == 200
+    
     def test_twoB(self):
         assert checkout_solution.checkout('BB') == 45
 
@@ -36,6 +39,7 @@ class TestCHK():
 
     def test_bad_input_negative_one(self):
         assert checkout_solution.checkout('e') == -1
+
 
 
 
