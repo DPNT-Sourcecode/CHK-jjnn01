@@ -51,8 +51,10 @@ class GroupOffer:
         if (number_of_items < self.required_number):
             raise InvalidOfferException("Invalid Offer")
         still_required = self.required_number
-        for item in value_ranked_collection:
-            count = item[1]
+        for item_tuple in value_ranked_collection:
+            count = item_tuple[1]
+            item = item_tuple[0]
+            print(item.name)
             print(f"checking count: {item[0]} - {item[1]}")
             print(f"still_required: {still_required}")
             if count == 0:
@@ -60,13 +62,12 @@ class GroupOffer:
                 continue
             if count < still_required:
                 print("Less than required")
-                print(
                 still_required = still_required - count
-                basket.remove_items(item[0], count)
+                basket.remove_items(item, count)
             else:
                 print("Enough")
-                basket.remove_items(item[0], still_required)
-                break;
+                basket.remove_items(item, still_required)
+                break
         basket.add_item_price(self.price)
         return basket
 
@@ -139,7 +140,6 @@ class Basket:
         for offer in self.group_offers:
             while True:
                 try:
-                    print('Trying')
                     self = offer.apply_offer(self)
                 except:
                     break
@@ -181,6 +181,7 @@ productW = Item('W',20)
 productX = Item('X',17)
 productY = Item('Y',20)
 productZ = Item('Z',21)
+
 
 
 
