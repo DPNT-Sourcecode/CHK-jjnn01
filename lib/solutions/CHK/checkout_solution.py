@@ -15,8 +15,10 @@ def checkout(skus):
     for letter in skus:
         try:
             print(products[letter])
+            print(basket)
             basket.add_item(products[letter])
-        except:
+        except Exception as e:
+            print(e)
             return -1
     return basket.calculate_value
 
@@ -35,13 +37,13 @@ class Item:
         self.name = name
         self.standardPrice = standardPrice
 
-public class Basket:
+class Basket:
     def __init__(self, viable_offers, items, price):
         self.viable_offers = viable_offers
         self.items = items
         self.price = price
 
-    public def add_item(item):
+    def add_item(item):
         print('Here')
         if item in self.items:
             self.items[item] = self.items[item] + 1
@@ -88,3 +90,4 @@ productD = Item('D',15)
 productE = Item('E',40)
 products = { 'A': productA, 'B': productB, 'C': productC, 'D': productD, 'E': productE}
 offers = [Offer({productA: 3}, 130), Offer({productA: 5}, 200), Offer({productB: 2}, 45), Offer({productB: 1, productE: 2}, 80)]
+
