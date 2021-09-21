@@ -10,12 +10,9 @@ class InvalidOperationException(Exception):
 
 def checkout(skus):
     basket = Basket(offers, {}, 0)
-    print(skus)
-    print('hello world')
+    print(basket.viable_offers)
     for letter in skus:
         try:
-            print(products[letter])
-            print(basket)
             basket.add_item(products[letter])
         except Exception as e:
             print(e)
@@ -71,8 +68,11 @@ class Basket:
         new_potential_baskets = [] 
         for offer in self.viable_offers:
             try:
+                print(offer)
                 basket = Basket(self.viable_offers, self.items, self.price)
+                print(basket)
                 basket = offer.apply_offer(basket)
+                print(basket.price)
                 new_potential_baskets.append(basket)
             except:
                 unviable_offers.append(offer)
@@ -90,6 +90,7 @@ productD = Item('D',15)
 productE = Item('E',40)
 products = { 'A': productA, 'B': productB, 'C': productC, 'D': productD, 'E': productE}
 offers = [Offer({productA: 3}, 130), Offer({productA: 5}, 200), Offer({productB: 2}, 45), Offer({productB: 1, productE: 2}, 80)]
+
 
 
 
