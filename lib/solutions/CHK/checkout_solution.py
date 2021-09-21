@@ -9,19 +9,17 @@ def checkout(skus):
             dict[letter.upper()] = dict[letter.upper()] + 1
         except:
             return -1
+    return getValue('A', dict['A']) + getValue('B', dict['B']) + getValue('C', dict['C']) + getValue('D', dict['D'])
 
 def getValue(letter, number):
-    #This is ugly. Should be a class. 
-    switch letter:
-        case 'A':
-            return (number % 3) * 130 + (number/3) * 50
-        case 'B':
-            return (number % 2) * 45 + (number/2) * 30
-        case 'C':
-            return number * 20
-        case 'D':
-            return number * 15
+    
+    if letter == 'A':
+        return (number % 3) * 130 + (number/3) * 50
+    elif letter == 'B':
+        return (number % 2) * 45 + (number/2) * 30
+    elif letter ==  'C':
+        return number * 20
+    elif letter == 'D':
+        return number * 15
 
-class Item:
-    name
 
