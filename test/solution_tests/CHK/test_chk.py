@@ -28,11 +28,16 @@ class TestCHK():
     def test_twoB(self):
         assert checkout_solution.checkout('BB') == 45
 
-    def test_multiplediscountswhennested(self):
+    def test_multiple_discounts_when_nested(self):
         assert checkout_solution.checkout('ABABA') == 175
 
     def test_lowercase(self):
         assert checkout_solution.checkout('a') == 50
+
+    def test_bad_input_negative_one(self):
+        assert checkout_solution.checkout('e') == -1
+
+
 
 
 
