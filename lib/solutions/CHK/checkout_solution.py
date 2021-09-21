@@ -176,12 +176,3 @@ productX = Item('X',17)
 productY = Item('Y',20)
 productZ = Item('Z',21)
 
-
-
-
-
-
-
-
-
-
